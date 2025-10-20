@@ -8,6 +8,7 @@
 <div align="center">
   <img src="assets/pipeline.png" />
 </div>
+
 ## BibTeX
 If you find our work helpful or use our code, please consider citing:
 ```bibtex
