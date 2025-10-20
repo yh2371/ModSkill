@@ -6,6 +6,7 @@
 </p>
 
 <div align="center">
+  <img src="assets/teaser.png" />
   <img src="assets/pipeline.png" />
 </div>
 
