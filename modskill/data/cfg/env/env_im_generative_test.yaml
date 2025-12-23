@@ -1,0 +1,75 @@
+# Test configuration for generative adaptive sampling
+# Based on env_im.yaml with generative sampling enabled
+
+task: HumanoidIm
+project_name: "PHC"
+notes: "Test generative adaptive sampling"
+motion_file: "/home/yhuang/tracking/ModTrack/data/test.pkl"  # Update this path to your test.pkl location
+num_envs: 64  # Reduced for testing
+env_spacing: 5
+episode_length: 300
+is_flag_run: False
+enable_debug_vis: False
+
+fut_tracks: False
+self_obs_v: 1
+obs_v: 6
+
+# Enable generative adaptive sampling
+auto_pmcp: False
+auto_pmcp_soft: False
+auto_pmcp_generative: True
+
+# Generative sampling parameters
+gen_samples_per_failed: 2  # Reduced for testing (default: 3)
+gen_discriminator_threshold: 0.4  # Lower threshold for testing (default: 0.5)
+
+# MDM model configuration (local model instead of Replicate API)
+mdm_model_path: "/home/yhuang/tracking/ModSkill_release/mdm/save/humanml_trans_enc_512/model000475000.pt"  # Path to MDM checkpoint
+mdm_repo_path: "/home/yhuang/tracking/ModSkill_release/mdm"  # Path to motion-diffusion-model repository root
+
+# Text mapping configuration using CSV + text files
+text_mapping_path: "/home/yhuang/tracking/ModSkill_release/motion_to_text.pkl"
+index_csv_path: "/home/yhuang/tracking/ModSkill_release/index.csv"
+# Update text_base_path to point to your text files directory
+# Expected format: {text_base_path}/{file_id}.txt where file_id comes from CSV new_name column
+text_base_path: "/home/yhuang/tracking/motion-diffusion-model/dataset/HumanML3D/texts"
+# Alternative: if you have a pre-computed pickle mapping, use:
+# text_mapping_path: "path/to/text_mapping.pkl"
+
+cycle_motion: False
+hard_negative: False
+min_length: 5
+
+kp_scale: 1
+power_reward: True
+
+shape_resampling_interval: 500
+
+control_mode: "isaac_pd"
+power_scale: 1.0
+controlFrequencyInv: 2 # 30 Hz
+stateInit: "Random"  
+hybridInitProb: 0.5
+numAMPObsSteps: 10
+
+local_root_obs: True
+root_height_obs: True
+key_bodies: ["R_Ankle", "L_Ankle", "R_Wrist",  "L_Wrist"]
+contact_bodies: ["R_Ankle", "L_Ankle", "R_Toe", "L_Toe"]
+reset_bodies: ['Pelvis', 'L_Hip', 'L_Knee', 'R_Hip', 'R_Knee', 'Torso', 'Spine', 'Chest', 'Neck', 'Head', 'L_Thorax', 'L_Shoulder', 'L_Elbow', 'L_Wrist', 'L_Hand', 'R_Thorax', 'R_Shoulder', 'R_Elbow', 'R_Wrist', 'R_Hand']
+terminationHeight: 0.15
+enableEarlyTermination: True
+terminationDistance: 0.25
+
+### Fut config
+numTrajSamples: 3
+trajSampleTimestepInv: 3
+enableTaskObs: True
+
+
+plane:
+  staticFriction: 1.0
+  dynamicFriction: 1.0
+  restitution: 0.0
+
